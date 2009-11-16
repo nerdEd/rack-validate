@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'rack'
 require 'w3c_validators'
 
@@ -15,28 +14,36 @@ module Rack
       def self.generate_report( issues )        
         report = ""
         report << STYLES
+        report << SCRIPT
         
         report << "<div id='message_toolbar'>"
+          report << '<div id="controls">'        
+            summary = "<span>There were " + issues.errors.size.to_s + " errors and " + issues.warnings.size.to_s + " warnings</span><br/><br/>"
+      		  report << summary  		  
+      		  report << LINKS  		  
+    		  report << '</div>'
         
-        report << generate_error_table( issues.errors ) unless issues.errors.empty?
-        report << generate_error_table( issues.warnings ) unless issues.warnings.empty?
+          if !issues.errors.empty?
+            report << "<table id='errors_table' style='display:none;'>"
+            report << "<tr><td colspan='2' class='header_column'>Errors</td></tr>"
+            issues.errors.each do |item|
+              report << "<tr><td class='line_number_column'>Line #{item.line}</td><td class='message_column'>#{html_escape( item.message )}</td></tr>"
+            end
+            report << "</table>"
+          end
         
+          if !issues.warnings.empty?
+            report << "<table id='warnings_table' style='display:none;'>"
+            report << "<tr><td colspan='2' class='header_column'>Warnings</td></tr>"
+            issues.warnings.each do |item|
+              report << "<tr><td class='line_number_column'>--</td><td class='message_column'>#{html_escape( item.message )}</td></tr>"
+            end
+            report << "</table>"
+          end
         report << "</div>"
       end
       
       private 
-      
-        def self.generate_error_table( list )
-          if list
-            table = ""
-            table << "<table class='issue_table'>"
-            table << "<tr><th>Line #</th><th>Error</th></tr>"
-            list.each do |item|
-              table << "<tr><td class='line_number_column'>#{item.line}</td><td class='error_message_column'>#{html_escape( item.message )}</td></tr>"
-            end
-            table << "</table>"
-          end
-        end
       
         # Stealing HTML escape method from rails
         def self.html_escape( string )
@@ -45,49 +52,79 @@ module Rack
       
         # Stealing HTML escape constant from rails
         HTML_ESCAPE	=	{ '&' => '&amp;', '>' => '&gt;', '<' => '&lt;', '"' => '&quot;' }
-      
+        
+        LINKS = <<-HERE
+  		    <a href="#" onclick="$( '#errors_table' ).toggle();updateText( this, 'Show Errors', 'Hide Errors' );">Show Errors</a>
+  		    <a href="#" onclick="$( '#warnings_table' ).toggle();updateText( this, 'Show Warnings', 'Hide Warnings' );">Show Warnings</a>
+  		    <a href="#" onclick="$( '#message_toolbar' ).toggle();">Close Toolbar</a>
+  		  HERE
+        
+        SCRIPT = <<-HERE
+          <script src="http://www.google.com/jsapi"></script>
+          <script type="text/javascript">
+            google.load("jquery", "1.3.2");
+            google.load("jqueryui", "1.7.2");
+
+            function updateText( element, textOne, textTwo ) {
+              if( element.innerHTML == textOne ) {
+                element.innerHTML = textTwo;
+              }
+              else { 
+                element.innerHTML = textOne;
+              }
+            }
+          </script>        
+        HERE
+                        
         STYLES = <<-HERE
-          <style type='text/css'>
-            #message_toolbar {
-              width: 100%; 
-              height: auto;
-              background: black;
-              position: absolute;
-              top:0;
-              left:0;
-              text-align:center;
-              -moz-opacity:.60; 
-              filter:alpha(opacity=60); 
-              opacity:.60;
-              font-size: 24pt;
-            }
-          
-            .issue_table {
-              margin: 0 auto;
-              border: none;
-              color: white;
-            }
-          
-            .line_number_column {
-              text-align: center;
-            }
-          
-            .error_message_column {
-              text-align: left;
-            }
-          
-            .header_row {
-            
-            }
-          
-            .on_row {
-            
-            }
-          
-            .off_row {
-            
-            }
-          </style>
+    		<style type='text/css'>
+          #message_toolbar {
+            width: 100%; 
+            min-height: 50px;
+            background: black;
+            position: absolute;			  
+            top:0;
+            left:0;
+            -moz-opacity:.80; 
+            filter:alpha(opacity=80); 
+            opacity:.80;
+            font-size: smaller;
+            font-family: "Courier New";
+            color: white;
+            text-align: center;
+          }			
+          #message_toolbar a{
+            color: white;
+            font-weight: bold;
+          }
+          .line_number_column {
+            text-align: left;
+            width: 100px;
+          }			
+          .error_message_column {
+            text-align: left;
+          }		
+          #errors_table,
+          #warnings_table {
+            width: 75%;
+            margin: 0 auto;
+            border: none;
+            color: white;
+            margin-top: 10px;
+          }
+          #errors_table .header_column,
+          #warnings_table .header_column {
+            text-align: center;
+            border-bottom: 2px dashed;
+          }
+          #errors_table .header_column {
+            border-color: red;
+          }
+          #warnings_table .header_column {
+            border-color: yellow;
+          }
+    		</style>
+
         HERE
     end
   end  

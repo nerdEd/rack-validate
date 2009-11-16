@@ -1,3 +1,4 @@
+require 'rack'
 require 'rack-validate/validator'
 
 module Rack
@@ -19,10 +20,6 @@ module Rack
         
           issues = Validator.validate( body )
         
-          # I'd like to insert this right after the start of the body tag, but
-          # because this is a validator I shouldn't assume that tag is there. 
-          # If it's not, all the more reason we should be showing validation
-          # errors. So, for now, we will just toss the report in at the start.
           body.insert( 0, Validator.generate_report( issues ) )
         
           headers["Content-Length"] = body.length.to_s

@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ed Schmalzle"]
   s.date = %q{2009-10-15}
-  s.description = %q{Rack middleware that generates a w3c validator report for every response and injects it into the response}
+  s.description = %q{Rack middleware that generates a w3c validator report for each response and injects the report into the response.}
   s.email = %q{Jonas714@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -32,10 +32,10 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{Rack middleware that generates a w3c validator report for your HTML}
+  s.summary = %q{Rack middleware that generates a w3c validator report for each response and injects the report into the response.}
   s.test_files = [
     "test/rack-validate_test.rb",
-     "test/test_helper.rb"
+    "test/test_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -44,10 +44,13 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+      s.add_development_dependency(%q<w3c_validator>, ["~= 0.9.3]"])
     else
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+      s.add_dependency(%q<w3c_validator>, ["~= 0.9.3]"])
     end
   else
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+    s.add_dependency(%q<w3c_validator>, ["~= 0.9.3]"])
   end
 end
