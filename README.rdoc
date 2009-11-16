@@ -1,6 +1,6 @@
 = rack-validate
 
-Description goes here.
+Simple Rack middleware to validate HTML with w3c validator and present response in the page. Used by passing rack-validate=true in the request.
 
 == Note on Patches/Pull Requests
  
