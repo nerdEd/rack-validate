@@ -8,7 +8,9 @@ module Rack
       
       def self.validate( response )
         validator = MarkupValidator.new    
-        validator.validate_text( response )        
+        # Wrap response in ResponseFile class so that we can use #validate_file
+        # this ensures that long responses won't error out 
+        validator.validate_file( ResponseFile.new(response) )        
       end
       
       def self.generate_report( issues )        

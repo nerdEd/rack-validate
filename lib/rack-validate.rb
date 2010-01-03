@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'rack'
+require 'rack-validate/response_file'
 require 'rack-validate/validator'
 
 module Rack
