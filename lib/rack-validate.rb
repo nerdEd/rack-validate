@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'rack'
 require 'rack-validate/validator'
 
