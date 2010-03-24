@@ -11,6 +11,8 @@ begin
     gem.homepage = "http://github.com/nerdEd/rack-validate"
     gem.authors = ["Ed Schmalzle"]
     gem.add_development_dependency "thoughtbot-shoulda"
+    gem.add_development_dependency "rspec"
+    gem.add_dependency 'w3c_validators'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
