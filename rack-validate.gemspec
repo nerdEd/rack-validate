@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.date = %q{2010-03-24}
   s.description = %q{Rack middleware that validates HTML with w3c validator and displays result in page.}
   s.email = %q{Jonas714@gmail.com}
-  s.executables = ["spec", "autospec", "rackup"]
+  s.executables = ["autospec", "rackup", "spec"]
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -44,12 +44,12 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/nerdEd/rack-validate}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{Rack middleware that validates HTML with w3c validator and displays result in page.}
   s.test_files = [
-    "spec/validator_spec.rb",
+    "spec/response_file_spec.rb",
      "spec/spec_helper.rb",
-     "spec/response_file_spec.rb"
+     "spec/validator_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
