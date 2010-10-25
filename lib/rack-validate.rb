@@ -16,7 +16,7 @@ module Rack
       status, headers, response = @app.call( env )
       
       request = Rack::Request.new( env )
-      if !request.params['rack-validate'].blank?
+      if !request.params['rack-validate'].nil?
         if headers['Content-Type'] =~ /text\/html|application\/xhtml\+xml/
           body = response.body
         
