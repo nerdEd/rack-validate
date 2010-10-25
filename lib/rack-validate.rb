@@ -17,6 +17,7 @@ module Rack
       resp = Rack::Response.new(body, status, headers)
       
       request = Rack::Request.new( env )
+      response = ""
       if !request.params['rack-validate'].nil?
         if headers['Content-Type'] =~ /text\/html|application\/xhtml\+xml/
           body = resp.body
@@ -26,7 +27,7 @@ module Rack
           body.insert( 0, Validator.generate_report( issues ) )
         
           headers["Content-Length"] = body.length.to_s
-          response = [body]
+          response = body
         end
       end
       
