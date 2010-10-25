@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rack-validate}
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ed Schmalzle"]
-  s.date = %q{2010-03-24}
+  s.date = %q{2010-10-25}
   s.description = %q{Rack middleware that validates HTML with w3c validator and displays result in page.}
   s.email = %q{Jonas714@gmail.com}
   s.executables = ["autospec", "rackup", "spec"]
@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
      ".gitignore",
+     "Gemfile",
+     "Gemfile.lock",
      "LICENSE",
      "README.rdoc",
      "Rakefile",
@@ -27,7 +29,6 @@ Gem::Specification.new do |s|
      "bin/autospec",
      "bin/rackup",
      "bin/spec",
-     "gemfile",
      "lib/rack-validate.rb",
      "lib/rack-validate/response_file.rb",
      "lib/rack-validate/validator.rb",
