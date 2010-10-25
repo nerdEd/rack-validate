@@ -13,12 +13,13 @@ module Rack
     end
         
     def call( env )
-      status, headers, response = @app.call( env )
+      status, headers, body = @app.call(env)
+      resp = Rack::Response.new(body, status, headers)
       
       request = Rack::Request.new( env )
       if !request.params['rack-validate'].nil?
         if headers['Content-Type'] =~ /text\/html|application\/xhtml\+xml/
-          body = response
+          body = resp.body
         
           issues = Validator.validate( body )
         
