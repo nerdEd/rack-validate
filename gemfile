@@ -1,6 +1,0 @@
-gem 'w3c_validators'
-
-group :test do
-  gem 'rspec'
-  gem 'rack'
-end
