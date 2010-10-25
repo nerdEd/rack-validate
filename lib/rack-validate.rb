@@ -18,7 +18,7 @@ module Rack
       request = Rack::Request.new( env )
       if !request.params['rack-validate'].nil?
         if headers['Content-Type'] =~ /text\/html|application\/xhtml\+xml/
-          body = response.body
+          body = response
         
           issues = Validator.validate( body )
         
