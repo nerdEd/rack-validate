@@ -19,13 +19,14 @@ module Rack
       request = Rack::Request.new( env )
       if request.params['rack-validate'] == "true"
         if headers['Content-Type'] =~ /text\/html|application\/xhtml\+xml/
-          body = resp.body
+          body = resp.body.dup
         
           issues = Validator.validate( body )
         
           body.insert( 0, Validator.generate_report( issues ) )
         
-          resp.body = body
+          resp.body = ""
+          resp.write(body)
         end
       end
       
