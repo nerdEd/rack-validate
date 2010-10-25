@@ -5,6 +5,7 @@ PATH
       w3c_validators
 
 GEM
+  remote: http://rubygems.org/
   specs:
     nokogiri (1.4.1)
     rspec (1.3.0)
